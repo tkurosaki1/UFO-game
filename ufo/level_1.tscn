@@ -1,0 +1,58 @@
+[gd_scene load_steps=7 format=3 uid="uid://kreg7m0vqbv3"]
+
+[ext_resource type="Script" path="res://level.gd" id="1_3kxmu"]
+[ext_resource type="Texture2D" uid="uid://degufouxio0q3" path="res://speedy_saucer_assets/purple.png" id="1_vi38r"]
+[ext_resource type="PackedScene" uid="uid://31w1kj2ohyik" path="res://player.tscn" id="2_xme2m"]
+[ext_resource type="Script" path="res://player.gd" id="4_n7nqr"]
+[ext_resource type="PackedScene" uid="uid://bptt361ga2cqy" path="res://maze.tscn" id="5_kcxww"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_vw7t2"]
+font_size = 24
+
+[node name="Level1" type="Node2D"]
+position = Vector2(-2, 0)
+script = ExtResource("1_3kxmu")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -10
+
+[node name="Background" type="TextureRect" parent="CanvasLayer"]
+z_index = -100
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_vi38r")
+stretch_mode = 1
+
+[node name="Player" parent="." instance=ExtResource("2_xme2m")]
+position = Vector2(504, 267)
+gravity_scale = 2.66454e-15
+script = ExtResource("4_n7nqr")
+
+[node name="Maze" parent="." instance=ExtResource("5_kcxww")]
+position = Vector2(809, 156)
+
+[node name="Label" type="Label" parent="."]
+z_index = -15
+offset_left = 113.0
+offset_top = 242.0
+offset_right = 242.0
+offset_bottom = 288.0
+text = "Start"
+label_settings = SubResource("LabelSettings_vw7t2")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="."]
+offset_left = 1315.0
+offset_top = 1599.0
+offset_right = 1465.0
+offset_bottom = 1693.0
+text = "End"
+label_settings = SubResource("LabelSettings_vw7t2")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="body_exited" from="Maze" to="." method="_on_maze_body_exited"]
